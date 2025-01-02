@@ -136,3 +136,5 @@ dmypy.json
 /logs/
 utils/update.toml
 tests/test_targets/*.a
+tests/fsoares/test*.out.dSYM/
+tests/fsoares/*.out
