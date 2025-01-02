@@ -1,13 +1,12 @@
 TIMEOUT		= 10
-CFLAGS		= -g -fsanitize=address -Wall -Wextra -Werror
+CFLAGS		= -g -Wall -Wextra -Werror
 STRICT		=
 UTILS 		= utils/malloc_mock.c utils/utils.c file_utils.c
-TEST_FILES	= ../get_next_line.c ../get_next_line_utils.c
-BONUS_FILES	= ../get_next_line_bonus.c ../get_next_line_utils_bonus.c
 TIMEOUT_ARG	= -D TIMEOUT=$(TIMEOUT)
 
 ifdef EXEC_STRICT
 STRICT		= -D STRICT_MEM
+STRICT		=  -D STRICT_MEM
 endif
 
 # SDK headers shipping w/Xcode 14.1 (22/11/01)
@@ -19,10 +18,19 @@ ifeq ($(UNAME), Linux)
     CFLAGS = -g -Wall -Wextra -Werror
 endif
 
-mandatory:
-	-@clang $(CFLAGS) -D BUFFER_SIZE=1 $(TIMEOUT_ARG) $(STRICT) tester.c $(UTILS) $(TEST_FILES) -ldl -o test1.out && ./test1.out < lines_around_10.txt
-	-@clang $(CFLAGS) -D BUFFER_SIZE=10 $(TIMEOUT_ARG) $(STRICT) tester.c $(UTILS) $(TEST_FILES) -ldl -o test2.out && ./test2.out < lines_around_10.txt
-	-@clang $(CFLAGS) -D BUFFER_SIZE=1000000 $(TIMEOUT_ARG) $(STRICT) tester.c $(UTILS) $(TEST_FILES) -ldl -o test3.out && ./test3.out < lines_around_10.txt
+TEST_TARGETS_DIR = ../test_targets
+
+mandatoryone:
+	-@clang $(CFLAGS) -D BUFFER_SIZE=1 $(TIMEOUT_ARG) $(STRICT) tester.c $(UTILS) -ldl -o test1.out $(TEST_TARGETS_DIR)/libget_next_line_1.a && ./test1.out < lines_around_10.txt
+	-@clang $(CFLAGS) -D STRICT_MEM -D BUFFER_SIZE=1 $(TIMEOUT_ARG) $(STRICT) tester.c $(UTILS) -ldl -o test1.out $(TEST_TARGETS_DIR)/libget_next_line_1.a && ./test1.out < lines_around_10.txt
+mandatoryten:
+	-@clang $(CFLAGS) -D BUFFER_SIZE=10 $(TIMEOUT_ARG) $(STRICT) tester.c $(UTILS) -ldl -o test2.out $(TEST_TARGETS_DIR)/libget_next_line_10.a && ./test2.out < lines_around_10.txt
+	-@clang $(CFLAGS) -D STRICT_MEM -D BUFFER_SIZE=10 $(TIMEOUT_ARG) $(STRICT) tester.c $(UTILS) -ldl -o test2.out $(TEST_TARGETS_DIR)/libget_next_line_10.a && ./test2.out < lines_around_10.txt
+mandatorymillion:
+	-@clang $(CFLAGS) -D BUFFER_SIZE=1000000 $(TIMEOUT_ARG) $(STRICT) tester.c $(UTILS) $(TEST_FILES) -ldl -o test3.out $(TEST_TARGETS_DIR)/libget_next_line_1000000.a && ./test3.out < lines_around_10.txt
+	-@clang $(CFLAGS) -D STRICT_MEM -D BUFFER_SIZE=1000000 $(TIMEOUT_ARG) $(STRICT) tester.c $(UTILS) -ldl -o test2.out $(TEST_TARGETS_DIR)/libget_next_line_1000000.a && ./test2.out < lines_around_10.txt
+
+mandatory: mandatoryone mandatoryten mandatorymillion
 
 bonus:
 	@tput setaf 3 && /bin/echo BONUS!
