@@ -4,11 +4,6 @@ STRICT		=
 UTILS 		= utils/malloc_mock.c utils/utils.c file_utils.c
 TIMEOUT_ARG	= -D TIMEOUT=$(TIMEOUT)
 
-ifdef EXEC_STRICT
-STRICT		= -D STRICT_MEM
-STRICT		=  -D STRICT_MEM
-endif
-
 # SDK headers shipping w/Xcode 14.1 (22/11/01)
 # and later deprecate some functions used here
 CFLAGS		+= -Wno-deprecated-declarations
