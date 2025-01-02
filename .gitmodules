@@ -1,4 +1,5 @@
-[submodule "gnlTester"]
-	path = tests/get_next/line/gnlTester
+[submodule "tests/gnlTester"]
+	path = tests/gnlTester
 	url = https://github.com/Jonstep101010/gnlTester.git
 	branch = master
+	
