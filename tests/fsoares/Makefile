@@ -1,5 +1,5 @@
 TIMEOUT		= 10
-CFLAGS		= -g -Wall -Wextra -Werror
+CFLAGS		= -g -fsanitize=address -Wall -Wextra -Werror
 STRICT		=
 UTILS 		= utils/malloc_mock.c utils/utils.c file_utils.c
 TIMEOUT_ARG	= -D TIMEOUT=$(TIMEOUT)
