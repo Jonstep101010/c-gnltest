@@ -139,3 +139,5 @@ tests/test_targets/*.a
 tests/fsoares/test*.out.dSYM/
 tests/fsoares/*.out
 *.out
+
+tests/fsoares/limits.txt
