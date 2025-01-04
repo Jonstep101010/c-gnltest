@@ -26,6 +26,8 @@ mandatorymillion:
 	-@clang $(CFLAGS) -D STRICT_MEM -D BUFFER_SIZE=1000000 $(TIMEOUT_ARG) $(STRICT) tester.c $(UTILS) -ldl -o test2.out $(TEST_TARGETS_DIR)/libget_next_line_1000000.a && ./test2.out < lines_around_10.txt
 
 mandatory: mandatoryone mandatoryten mandatorymillion
+	@rm -rf *.out
+	@rm -rf *.dSYM
 
 bonus:
 	@tput setaf 3 && /bin/echo BONUS!
